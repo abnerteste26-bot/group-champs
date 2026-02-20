@@ -2,95 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Copa do Mundo - Verde escuro + Dourado */
+    --background: 160 30% 6%;
+    --foreground: 45 100% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 160 25% 9%;
+    --card-foreground: 45 100% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 160 25% 9%;
+    --popover-foreground: 45 100% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 42 95% 52%;
+    --primary-foreground: 160 30% 6%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 160 20% 15%;
+    --secondary-foreground: 45 100% 90%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 160 15% 12%;
+    --muted-foreground: 160 10% 55%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 42 90% 45%;
+    --accent-foreground: 160 30% 6%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 50%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 160 15% 18%;
+    --input: 160 15% 14%;
+    --ring: 42 95% 52%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Custom tokens */
+    --gold: 42 95% 52%;
+    --gold-dark: 38 85% 38%;
+    --gold-light: 48 100% 70%;
+    --green-field: 142 60% 25%;
+    --green-dark: 160 35% 8%;
+    --surface: 160 22% 11%;
+    --surface-elevated: 160 20% 14%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --gradient-gold: linear-gradient(135deg, hsl(42 95% 52%), hsl(38 85% 38%));
+    --gradient-hero: linear-gradient(180deg, hsl(160 35% 4%) 0%, hsl(142 40% 12%) 50%, hsl(160 35% 4%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(160 25% 11%), hsl(160 20% 8%));
+    --shadow-gold: 0 0 30px hsl(42 95% 52% / 0.3);
+    --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.4);
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 160 30% 7%;
+    --sidebar-foreground: 45 80% 90%;
+    --sidebar-primary: 42 95% 52%;
+    --sidebar-primary-foreground: 160 30% 6%;
+    --sidebar-accent: 160 20% 13%;
+    --sidebar-accent-foreground: 45 80% 90%;
+    --sidebar-border: 160 15% 16%;
+    --sidebar-ring: 42 95% 52%;
   }
 }
 
@@ -101,5 +70,113 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    background-image: 
+      radial-gradient(ellipse at 20% 20%, hsl(142 60% 15% / 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, hsl(42 95% 52% / 0.05) 0%, transparent 50%);
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.02em;
+  }
+}
+
+@layer components {
+  .btn-gold {
+    @apply bg-primary text-primary-foreground font-bold uppercase tracking-wider px-6 py-3 rounded-lg transition-all duration-200;
+    background: var(--gradient-gold);
+    box-shadow: 0 4px 15px hsl(42 95% 52% / 0.3);
+    font-family: 'Oswald', sans-serif;
+  }
+  .btn-gold:hover {
+    box-shadow: 0 6px 25px hsl(42 95% 52% / 0.5);
+    transform: translateY(-1px);
+  }
+
+  .card-copa {
+    background: var(--gradient-card);
+    border: 1px solid hsl(var(--border));
+    border-radius: 12px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-copa-gold {
+    background: var(--gradient-card);
+    border: 1px solid hsl(var(--gold));
+    border-radius: 12px;
+    box-shadow: var(--shadow-gold);
+  }
+
+  .table-copa th {
+    font-family: 'Oswald', sans-serif;
+    @apply text-primary uppercase tracking-wider text-sm;
+    background: hsl(var(--muted));
+  }
+
+  .table-copa td {
+    @apply border-b border-border;
+  }
+
+  .status-pendente { @apply text-yellow-400 bg-yellow-400/10 px-2 py-0.5 rounded text-xs font-semibold uppercase; }
+  .status-confirmada { @apply text-green-400 bg-green-400/10 px-2 py-0.5 rounded text-xs font-semibold uppercase; }
+  .status-enviada { @apply text-blue-400 bg-blue-400/10 px-2 py-0.5 rounded text-xs font-semibold uppercase; }
+  .status-ajustada { @apply text-orange-400 bg-orange-400/10 px-2 py-0.5 rounded text-xs font-semibold uppercase; }
+  .status-rejeitada { @apply text-red-400 bg-red-400/10 px-2 py-0.5 rounded text-xs font-semibold uppercase; }
+
+  .grupo-badge {
+    font-family: 'Oswald', sans-serif;
+    @apply inline-flex items-center justify-center w-7 h-7 rounded font-bold text-sm;
+    background: var(--gradient-gold);
+    color: hsl(var(--primary-foreground));
+  }
+
+  .nav-link {
+    @apply text-muted-foreground hover:text-primary transition-colors duration-200 font-medium uppercase tracking-wider text-sm;
+    font-family: 'Oswald', sans-serif;
+  }
+
+  .nav-link.active {
+    @apply text-primary;
+    border-bottom: 2px solid hsl(var(--primary));
+  }
+
+  .field-label {
+    @apply text-muted-foreground text-sm font-medium uppercase tracking-wider;
+    font-family: 'Oswald', sans-serif;
+  }
+
+  .input-copa {
+    @apply w-full rounded-lg px-4 py-2.5 text-foreground transition-all outline-none;
+    background: hsl(var(--input));
+    border: 1px solid hsl(var(--border));
+  }
+  .input-copa:focus {
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 3px hsl(42 95% 52% / 0.15);
+  }
+
+  .posicao-1 { @apply text-yellow-400 font-bold; }
+  .posicao-2 { @apply text-slate-300 font-bold; }
+  .posicao-classificado { @apply text-green-400; }
+  .posicao-eliminado { @apply text-red-400; }
+
+  .shimmer {
+    background: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(var(--surface-elevated)) 50%, hsl(var(--muted)) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    from { box-shadow: 0 0 10px hsl(42 95% 52% / 0.3); }
+    to { box-shadow: 0 0 30px hsl(42 95% 52% / 0.7); }
   }
 }
