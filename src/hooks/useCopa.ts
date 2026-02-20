@@ -1,0 +1,134 @@
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+
+export function useCampeonato() {
+  const [campeonato, setCampeonato] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  async function fetchCampeonato() {
+    const { data } = await supabase
+      .from("campeonatos")
+      .select("*")
+      .not("status", "eq", "encerrado")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .single();
+    setCampeonato(data);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    fetchCampeonato();
+  }, []);
+
+  return { campeonato, loading, refetch: fetchCampeonato };
+}
+
+export function useGrupos(campeonatoId: string | null) {
+  const [grupos, setGrupos] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!campeonatoId) return;
+    setLoading(true);
+    supabase
+      .from("grupos")
+      .select(`
+        *,
+        grupo_times(
+          time:times(id, nome, escudo_url)
+        )
+      `)
+      .eq("campeonato_id", campeonatoId)
+      .order("nome")
+      .then(({ data }) => {
+        setGrupos(data ?? []);
+        setLoading(false);
+      });
+  }, [campeonatoId]);
+
+  return { grupos, loading };
+}
+
+export function useClassificacao(campeonatoId: string | null) {
+  const [classificacao, setClassificacao] = useState<Record<string, any[]>>({});
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!campeonatoId) return;
+    setLoading(true);
+    supabase
+      .from("classificacao")
+      .select(`
+        *,
+        time:times(id, nome, escudo_url),
+        grupo:grupos(id, nome)
+      `)
+      .eq("campeonato_id", campeonatoId)
+      .order("posicao")
+      .then(({ data }) => {
+        const byGrupo: Record<string, any[]> = {};
+        (data ?? []).forEach((row) => {
+          const g = row.grupo?.nome ?? "?";
+          if (!byGrupo[g]) byGrupo[g] = [];
+          byGrupo[g].push(row);
+        });
+        setClassificacao(byGrupo);
+        setLoading(false);
+      });
+  }, [campeonatoId]);
+
+  return { classificacao, loading };
+}
+
+export function usePartidas(campeonatoId: string | null, grupoId?: string | null) {
+  const [partidas, setPartidas] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  async function fetchPartidas() {
+    if (!campeonatoId) return;
+    setLoading(true);
+    let query = supabase
+      .from("partidas")
+      .select(`
+        *,
+        time_a:times!partidas_time_a_id_fkey(id, nome, escudo_url),
+        time_b:times!partidas_time_b_id_fkey(id, nome, escudo_url),
+        grupo:grupos(id, nome)
+      `)
+      .eq("campeonato_id", campeonatoId)
+      .order("rodada")
+      .order("created_at");
+
+    if (grupoId) query = query.eq("grupo_id", grupoId);
+
+    const { data } = await query;
+    setPartidas(data ?? []);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    fetchPartidas();
+  }, [campeonatoId, grupoId]);
+
+  return { partidas, loading, refetch: fetchPartidas };
+}
+
+export function useInscricoesPendentes() {
+  const [inscricoes, setInscricoes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  async function fetchInscricoes() {
+    const { data } = await supabase
+      .from("inscricoes_pendentes")
+      .select(`*, campeonato:campeonatos(nome)`)
+      .eq("status", "pendente")
+      .order("created_at");
+    setInscricoes(data ?? []);
+    setLoading(false);
+  }
+
+  useEffect(() => { fetchInscricoes(); }, []);
+
+  return { inscricoes, loading, refetch: fetchInscricoes };
+}
