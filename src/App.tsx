@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
+import CampeonatoTimer from "@/components/CampeonatoTimer";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import LoginPage from "./pages/LoginPage";
@@ -26,6 +27,7 @@ const App = () => (
         <AuthProvider>
           <div className="min-h-screen flex flex-col">
             <Navbar />
+            <CampeonatoTimer />
             <main className="flex-1">
               <Routes>
                 <Route path="/" element={<Index />} />

@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
 import { Trophy } from "lucide-react";
 import InscricaoForm from "@/components/InscricaoForm";
-import { useState } from "react";
 
 export default function InscricaoPage() {
-  const [showForm, setShowForm] = useState(false);
-
   return (
     <div className="max-w-xl mx-auto px-4 py-12">
       <div className="text-center mb-8">
@@ -14,7 +11,7 @@ export default function InscricaoPage() {
           Inscrição no Campeonato
         </h1>
         <p className="text-muted-foreground mt-2">
-          Preencha os dados abaixo para participar. Após análise do comprovante, seu time receberá login e senha.
+          Preencha os dados abaixo para participar. Após análise, seu time receberá login e senha.
         </p>
       </div>
 
@@ -24,11 +21,12 @@ export default function InscricaoPage() {
         </h2>
         <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
           <li>Campeonato com 16 times, 4 grupos de 4 times</li>
-          <li>Fase de grupos: todos contra todos (6 partidas por grupo)</li>
-          <li>Top 2 de cada grupo avança para o mata-mata</li>
+          <li>Fase de grupos: todos contra todos com jogos apenas de ida</li>
+          <li>Os dois melhores de cada grupo avançam para o mata-mata</li>
           <li>Pontuação: vitória = 3pts, empate = 1pt, derrota = 0</li>
           <li>Desempate: saldo de gols, gols pró, confronto direto</li>
-          <li>Resultados devem ser enviados pelo time e confirmados pelo admin</li>
+          <li>Resultados devem ser confirmados no site pelo time vencedor</li>
+          <li>O time vencedor é o único autorizado a confirmar o placar da partida</li>
         </ul>
       </div>
 
