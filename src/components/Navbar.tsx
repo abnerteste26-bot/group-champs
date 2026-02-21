@@ -1,8 +1,7 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Trophy, Menu, X, LogOut, Shield } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 
 const PUBLIC_LINKS = [
   { to: "/", label: "Início" },
@@ -13,13 +12,11 @@ const PUBLIC_LINKS = [
 export default function Navbar() {
   const { user, isAdmin, signOut } = useAuth();
   const location = useLocation();
-  const navigate = useNavigate();
+  
   const [mobileOpen, setMobileOpen] = useState(false);
 
   async function handleSignOut() {
     await signOut();
-    toast.success("Sessão encerrada");
-    navigate("/");
   }
 
   return (
