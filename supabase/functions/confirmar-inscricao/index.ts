@@ -27,6 +27,10 @@ Deno.serve(async (req) => {
 
     const { inscricao_id, campeonato_id, nome_time, responsavel } = await req.json();
 
+    // Verificar se já não foi processada
+    const { data: insData } = await supabaseAdmin.from("inscricoes_pendentes").select("status").eq("id", inscricao_id).single();
+    if (!insData || insData.status !== "pendente") throw new Error("Inscrição já foi processada");
+
     // Verificar campeonato ativo
     const { data: camp } = await supabaseAdmin.from("campeonatos").select("*").eq("id", campeonato_id).single();
     if (!camp) throw new Error("Campeonato não encontrado");
@@ -40,8 +44,10 @@ Deno.serve(async (req) => {
     if ((count ?? 0) >= camp.max_times) throw new Error("Campeonato já atingiu o limite de times");
 
     // Criar usuário
-    const email = `${nome_time.toLowerCase().replace(/\s+/g, ".").replace(/[^a-z0-9.]/g, "")}.${Date.now()}@copamaster.com`;
-    const senha = Math.random().toString(36).slice(-6).toUpperCase() + Math.random().toString(36).slice(-4);
+    // Gerar login determinístico: nomedotime00 / F00+NomeDoTime+00
+    const loginBase = nome_time.toLowerCase().replace(/\s+/g, "").replace(/[^a-z0-9]/g, "");
+    const email = `${loginBase}00@copamaster.com`;
+    const senha = `F00${nome_time.replace(/\s+/g, "")}00`;
 
     const { data: authUser, error: createErr } = await supabaseAdmin.auth.admin.createUser({
       email,

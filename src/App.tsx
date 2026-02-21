@@ -2,18 +2,23 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import CampeonatoTimer from "@/components/CampeonatoTimer";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import AdminLayout from "@/components/AdminLayout";
 import Index from "./pages/Index";
 import LoginPage from "./pages/LoginPage";
 import InscricaoPage from "./pages/InscricaoPage";
 import ClassificacaoPage from "./pages/ClassificacaoPage";
 import PartidasPage from "./pages/PartidasPage";
 import TimeAreaPage from "./pages/TimeAreaPage";
-import AdminPage from "./pages/AdminPage";
+import AdminInscricoesPage from "./pages/admin/AdminInscricoesPage";
+import AdminCampeonatosPage from "./pages/admin/AdminCampeonatosPage";
+import AdminGruposPage from "./pages/admin/AdminGruposPage";
+import AdminConfigPage from "./pages/admin/AdminConfigPage";
+import AdminLogsPage from "./pages/admin/AdminLogsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,14 +48,22 @@ const App = () => (
                     </ProtectedRoute>
                   }
                 />
+                {/* Admin routes with sidebar layout */}
                 <Route
                   path="/admin"
                   element={
                     <ProtectedRoute requireAdmin>
-                      <AdminPage />
+                      <AdminLayout />
                     </ProtectedRoute>
                   }
-                />
+                >
+                  <Route index element={<Navigate to="/admin/inscricoes" replace />} />
+                  <Route path="inscricoes" element={<AdminInscricoesPage />} />
+                  <Route path="campeonatos" element={<AdminCampeonatosPage />} />
+                  <Route path="grupos" element={<AdminGruposPage />} />
+                  <Route path="configuracoes" element={<AdminConfigPage />} />
+                  <Route path="logs" element={<AdminLogsPage />} />
+                </Route>
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
