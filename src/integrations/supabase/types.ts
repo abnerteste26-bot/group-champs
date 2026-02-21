@@ -14,6 +14,44 @@ export type Database = {
   }
   public: {
     Tables: {
+      campeonato_timer: {
+        Row: {
+          campeonato_id: string
+          id: string
+          paused_at: string | null
+          started_at: string | null
+          status: string
+          tempo_acumulado: number
+          updated_at: string
+        }
+        Insert: {
+          campeonato_id: string
+          id?: string
+          paused_at?: string | null
+          started_at?: string | null
+          status?: string
+          tempo_acumulado?: number
+          updated_at?: string
+        }
+        Update: {
+          campeonato_id?: string
+          id?: string
+          paused_at?: string | null
+          started_at?: string | null
+          status?: string
+          tempo_acumulado?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campeonato_timer_campeonato_id_fkey"
+            columns: ["campeonato_id"]
+            isOneToOne: true
+            referencedRelation: "campeonatos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       campeonatos: {
         Row: {
           campeao_id: string | null
@@ -216,7 +254,7 @@ export type Database = {
           responsavel: string
           status?: Database["public"]["Enums"]["status_inscricao"]
           updated_at?: string
-          whatsapp: string
+          whatsapp?: string
         }
         Update: {
           aceite_regulamento?: boolean
@@ -408,7 +446,7 @@ export type Database = {
           senha_gerada?: string | null
           updated_at?: string
           user_id?: string | null
-          whatsapp: string
+          whatsapp?: string
         }
         Update: {
           ativo?: boolean

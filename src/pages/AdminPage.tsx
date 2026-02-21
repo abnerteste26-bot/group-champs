@@ -71,7 +71,7 @@ export default function AdminPage() {
           campeonato_id: ins.campeonato_id,
           nome_time: ins.nome_time,
           responsavel: ins.responsavel,
-          whatsapp: ins.whatsapp,
+          whatsapp: "",
         },
       });
 
@@ -236,19 +236,9 @@ export default function AdminPage() {
                       <span className="font-bold text-foreground">{ins.nome_time}</span>
                       <StatusBadge status={ins.status} />
                     </div>
-                    <p className="text-sm text-muted-foreground">Resp: {ins.responsavel} | WhatsApp: {ins.whatsapp}</p>
+                    <p className="text-sm text-muted-foreground">Resp: {ins.responsavel}</p>
                     <p className="text-xs text-muted-foreground">{new Date(ins.created_at).toLocaleString("pt-BR")}</p>
                   </div>
-                  {ins.comprovante_url && (
-                    <a
-                      href={`${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/authenticated/comprovantes/${ins.comprovante_url}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-primary underline"
-                    >
-                      Ver comprovante
-                    </a>
-                  )}
                   <div className="flex gap-2">
                     <button
                       onClick={() => confirmarInscricao(ins)}
