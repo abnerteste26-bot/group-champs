@@ -44,7 +44,6 @@ export default function InscricaoForm({ onSuccess }: InscricaoFormProps) {
         campeonato_id: campeonato.id,
         nome_time: form.nome_time.trim(),
         responsavel: form.responsavel.trim(),
-        whatsapp: "",
         aceite_regulamento: form.aceite_regulamento,
         status: "pendente",
       });

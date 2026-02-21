@@ -71,7 +71,6 @@ export default function AdminPage() {
           campeonato_id: ins.campeonato_id,
           nome_time: ins.nome_time,
           responsavel: ins.responsavel,
-          whatsapp: "",
         },
       });
 

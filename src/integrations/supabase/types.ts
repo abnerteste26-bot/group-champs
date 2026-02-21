@@ -233,7 +233,6 @@ export type Database = {
         Row: {
           aceite_regulamento: boolean
           campeonato_id: string
-          comprovante_url: string | null
           created_at: string
           id: string
           nome_time: string
@@ -241,12 +240,10 @@ export type Database = {
           responsavel: string
           status: Database["public"]["Enums"]["status_inscricao"]
           updated_at: string
-          whatsapp: string
         }
         Insert: {
           aceite_regulamento?: boolean
           campeonato_id: string
-          comprovante_url?: string | null
           created_at?: string
           id?: string
           nome_time: string
@@ -254,12 +251,10 @@ export type Database = {
           responsavel: string
           status?: Database["public"]["Enums"]["status_inscricao"]
           updated_at?: string
-          whatsapp?: string
         }
         Update: {
           aceite_regulamento?: boolean
           campeonato_id?: string
-          comprovante_url?: string | null
           created_at?: string
           id?: string
           nome_time?: string
@@ -267,7 +262,6 @@ export type Database = {
           responsavel?: string
           status?: Database["public"]["Enums"]["status_inscricao"]
           updated_at?: string
-          whatsapp?: string
         }
         Relationships: [
           {

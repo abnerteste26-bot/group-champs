@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
     const { data: roleData } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", user.id).single();
     if (roleData?.role !== "admin") throw new Error("Apenas admins podem confirmar inscrições");
 
-    const { inscricao_id, campeonato_id, nome_time, responsavel, whatsapp = "" } = await req.json();
+    const { inscricao_id, campeonato_id, nome_time, responsavel } = await req.json();
 
     // Verificar campeonato ativo
     const { data: camp } = await supabaseAdmin.from("campeonatos").select("*").eq("id", campeonato_id).single();
@@ -62,7 +62,7 @@ Deno.serve(async (req) => {
       user_id: userId,
       nome: nome_time,
       responsavel,
-      whatsapp,
+      whatsapp: "",
       login_gerado: email,
       senha_gerada: senha,
       ativo: true,
