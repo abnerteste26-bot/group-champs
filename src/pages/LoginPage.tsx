@@ -28,10 +28,18 @@ export default function LoginPage() {
       return;
     }
     toast.success("Login realizado!");
-    // Aguarda o estado de auth atualizar e redireciona
-    setTimeout(() => {
-      navigate(isAdmin ? "/admin" : "/time");
-    }, 600);
+    // Check role after login to determine redirect
+    const { data: { user: loggedUser } } = await supabase.auth.getUser();
+    if (loggedUser) {
+      const { data: roleData } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", loggedUser.id)
+        .single();
+      navigate(roleData?.role === "admin" ? "/admin" : "/time");
+    } else {
+      navigate("/");
+    }
   }
 
   async function handleCadastro(e: React.FormEvent) {
