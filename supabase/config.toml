@@ -1,1 +1,13 @@
 project_id = "csolshphujgtxtrqapbb"
+
+[functions.confirmar-inscricao]
+verify_jwt = false
+
+[functions.confirmar-resultado]
+verify_jwt = false
+
+[functions.excluir-time]
+verify_jwt = false
+
+[functions.gerar-partidas]
+verify_jwt = false
