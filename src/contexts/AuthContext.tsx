@@ -73,8 +73,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function signOut() {
-    await supabase.auth.signOut();
-    window.location.href = "/login";
+    try {
+      await supabase.auth.signOut({ scope: 'local' });
+    } catch (e) {
+      console.error("Erro ao fazer logout:", e);
+    } finally {
+      setUser(null);
+      setSession(null);
+      setIsAdmin(false);
+      setTimeId(null);
+      window.location.href = "/login";
+    }
   }
 
   return (
