@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { useCampeonato } from "@/hooks/useCopa";
+import { useCampeonatoAberto } from "@/hooks/useCopa";
 import { Check } from "lucide-react";
 import { toast } from "sonner";
 
@@ -9,7 +9,7 @@ interface InscricaoFormProps {
 }
 
 export default function InscricaoForm({ onSuccess }: InscricaoFormProps) {
-  const { campeonato } = useCampeonato();
+  const { campeonato } = useCampeonatoAberto();
   const [form, setForm] = useState({
     nome_time: "",
     responsavel: "",

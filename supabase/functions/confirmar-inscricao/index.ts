@@ -97,6 +97,52 @@ Deno.serve(async (req) => {
         inscricoes_abertas: false,
       }).eq("id", campeonato_id);
       await supabaseAdmin.rpc("gerar_partidas_grupos", { p_campeonato_id: campeonato_id });
+
+      // Auto-criar próximo campeonato se ainda não existem 4 ativos
+      const { data: activeCamps } = await supabaseAdmin.from("campeonatos")
+        .select("id, nome")
+        .not("status", "eq", "encerrado");
+      
+      if ((activeCamps?.length ?? 0) < 4) {
+        const suffixes = ["B", "C", "D", "E", "F", "G", "H"];
+        const baseName = camp.nome.replace(/\s+[A-H]$/, ""); // Remove existing suffix
+        const usedNames = new Set((activeCamps ?? []).map((c: any) => c.nome));
+        let newName = "";
+        for (const s of suffixes) {
+          const candidate = `${baseName} ${s}`;
+          if (!usedNames.has(candidate)) {
+            newName = candidate;
+            break;
+          }
+        }
+        if (newName) {
+          const { data: newCamp } = await supabaseAdmin.from("campeonatos").insert({
+            nome: newName,
+            edicao: camp.edicao,
+            status: "inscricoes_abertas",
+            inscricoes_abertas: true,
+            max_times: 16,
+            times_confirmados: 0,
+          }).select().single();
+
+          if (newCamp) {
+            // Criar 4 grupos para o novo campeonato
+            const grupos = ["A", "B", "C", "D"];
+            for (const g of grupos) {
+              await supabaseAdmin.from("grupos").insert({
+                campeonato_id: newCamp.id,
+                nome: g,
+              });
+            }
+            // Criar timer
+            await supabaseAdmin.from("campeonato_timer").insert({
+              campeonato_id: newCamp.id,
+              status: "parado",
+              tempo_acumulado: 0,
+            });
+          }
+        }
+      }
     }
 
     // Log

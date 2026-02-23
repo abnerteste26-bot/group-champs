@@ -1,27 +1,39 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
-export function useCampeonato() {
-  const [campeonato, setCampeonato] = useState<any>(null);
+export function useCampeonatos() {
+  const [campeonatos, setCampeonatos] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  async function fetchCampeonato() {
+  async function fetchCampeonatos() {
     const { data } = await supabase
       .from("campeonatos")
       .select("*")
       .not("status", "eq", "encerrado")
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .single();
-    setCampeonato(data);
+      .order("created_at", { ascending: true });
+    setCampeonatos(data ?? []);
     setLoading(false);
   }
 
   useEffect(() => {
-    fetchCampeonato();
+    fetchCampeonatos();
   }, []);
 
-  return { campeonato, loading, refetch: fetchCampeonato };
+  return { campeonatos, loading, refetch: fetchCampeonatos };
+}
+
+// Backward compat: returns the first active championship
+export function useCampeonato() {
+  const { campeonatos, loading, refetch } = useCampeonatos();
+  const campeonato = campeonatos.length > 0 ? campeonatos[0] : null;
+  return { campeonato, loading, refetch };
+}
+
+// Returns the championship with open inscriptions
+export function useCampeonatoAberto() {
+  const { campeonatos, loading, refetch } = useCampeonatos();
+  const campeonato = campeonatos.find((c: any) => c.inscricoes_abertas) ?? null;
+  return { campeonato, loading, refetch };
 }
 
 export function useGrupos(campeonatoId: string | null) {

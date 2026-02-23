@@ -1,10 +1,13 @@
-import { useCampeonato, useClassificacao, useGrupos } from "@/hooks/useCopa";
+import { useState } from "react";
+import { useCampeonatos, useClassificacao } from "@/hooks/useCopa";
 import ClassificacaoTable from "@/components/ClassificacaoTable";
 import StatusBadge from "@/components/StatusBadge";
 import { Trophy } from "lucide-react";
 
 export default function ClassificacaoPage() {
-  const { campeonato, loading: campLoad } = useCampeonato();
+  const { campeonatos, loading: campLoad } = useCampeonatos();
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const campeonato = campeonatos[selectedIdx] ?? campeonatos[0] ?? null;
   const { classificacao, loading: classLoad } = useClassificacao(campeonato?.id ?? null);
   const loading = campLoad || classLoad;
 
@@ -24,6 +27,26 @@ export default function ClassificacaoPage() {
           )}
         </div>
       </div>
+
+      {/* Tabs de campeonatos */}
+      {campeonatos.length > 1 && (
+        <div className="flex flex-wrap gap-2 mb-6">
+          {campeonatos.map((c: any, i: number) => (
+            <button
+              key={c.id}
+              onClick={() => setSelectedIdx(i)}
+              className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider transition-all ${
+                selectedIdx === i
+                  ? "bg-primary text-primary-foreground shadow-lg"
+                  : "bg-muted text-muted-foreground hover:text-foreground"
+              }`}
+              style={{ fontFamily: "Oswald, sans-serif" }}
+            >
+              {c.nome}
+            </button>
+          ))}
+        </div>
+      )}
 
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

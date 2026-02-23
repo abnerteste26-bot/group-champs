@@ -1,4 +1,4 @@
-import { useCampeonato } from "@/hooks/useCopa";
+import { useCampeonatos } from "@/hooks/useCopa";
 import StatusBadge from "@/components/StatusBadge";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -6,7 +6,9 @@ import { useState } from "react";
 import { Trophy, Lock, Play, AlertTriangle } from "lucide-react";
 
 export default function AdminCampeonatosPage() {
-  const { campeonato, refetch } = useCampeonato();
+  const { campeonatos, refetch } = useCampeonatos();
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const campeonato = campeonatos[selectedIdx] ?? campeonatos[0] ?? null;
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
 
   async function encerrarInscricoes() {
@@ -29,9 +31,56 @@ export default function AdminCampeonatosPage() {
   async function encerrarCampeonato() {
     if (!campeonato) return;
     if (!confirm("Encerrar campeonato definitivamente?")) return;
-    await supabase.from("campeonatos").update({ status: "encerrado" }).eq("id", campeonato.id);
-    toast.info("Campeonato encerrado");
-    refetch();
+    setLoadingAction("encerrar_camp");
+    try {
+      await supabase.from("campeonatos").update({ status: "encerrado" }).eq("id", campeonato.id);
+
+      // Auto-criar novo campeonato
+      const { data: activeCamps } = await supabase.from("campeonatos")
+        .select("id, nome")
+        .not("status", "eq", "encerrado");
+      
+      if ((activeCamps?.length ?? 0) < 4) {
+        const baseName = campeonato.nome.replace(/\s+[A-H]$/, "");
+        const usedNames = new Set((activeCamps ?? []).map((c: any) => c.nome));
+        const suffixes = ["", "B", "C", "D", "E", "F", "G", "H"];
+        let newName = "";
+        for (const s of suffixes) {
+          const candidate = s ? `${baseName} ${s}` : baseName;
+          if (!usedNames.has(candidate)) {
+            newName = candidate;
+            break;
+          }
+        }
+        if (newName) {
+          const { data: newCamp } = await supabase.from("campeonatos").insert({
+            nome: newName,
+            edicao: campeonato.edicao,
+            status: "inscricoes_abertas",
+            inscricoes_abertas: true,
+            max_times: 16,
+            times_confirmados: 0,
+          }).select().single();
+
+          if (newCamp) {
+            for (const g of ["A", "B", "C", "D"]) {
+              await supabase.from("grupos").insert({ campeonato_id: newCamp.id, nome: g });
+            }
+            await supabase.from("campeonato_timer").insert({
+              campeonato_id: newCamp.id, status: "parado", tempo_acumulado: 0,
+            });
+            toast.success(`Novo campeonato "${newName}" criado automaticamente!`);
+          }
+        }
+      }
+
+      toast.info("Campeonato encerrado");
+      refetch();
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      setLoadingAction(null);
+    }
   }
 
   if (!campeonato) {
@@ -50,8 +99,30 @@ export default function AdminCampeonatosPage() {
         <h1 className="text-2xl font-bold" style={{ fontFamily: "Oswald, sans-serif" }}>Campeonatos</h1>
       </div>
 
+      {/* Tabs */}
+      {campeonatos.length > 1 && (
+        <div className="flex flex-wrap gap-2">
+          {campeonatos.map((c: any, i: number) => (
+            <button
+              key={c.id}
+              onClick={() => setSelectedIdx(i)}
+              className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider transition-all ${
+                selectedIdx === i
+                  ? "bg-primary text-primary-foreground shadow-lg"
+                  : "bg-muted text-muted-foreground hover:text-foreground"
+              }`}
+              style={{ fontFamily: "Oswald, sans-serif" }}
+            >
+              {c.nome}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div className="card-copa p-6">
-        <h3 className="text-lg font-bold mb-4" style={{ fontFamily: "Oswald, sans-serif" }}>Campeonato Atual</h3>
+        <h3 className="text-lg font-bold mb-4" style={{ fontFamily: "Oswald, sans-serif" }}>
+          {campeonato.nome}
+        </h3>
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div><span className="field-label">Nome</span><p className="text-foreground mt-1">{campeonato.nome}</p></div>
           <div><span className="field-label">Edição</span><p className="text-foreground mt-1">{campeonato.edicao ?? "—"}</p></div>
