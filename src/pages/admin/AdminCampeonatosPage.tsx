@@ -3,7 +3,7 @@ import StatusBadge from "@/components/StatusBadge";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useState } from "react";
-import { Trophy, Lock, Play, AlertTriangle } from "lucide-react";
+import { Trophy, Lock, Plus, AlertTriangle } from "lucide-react";
 
 export default function AdminCampeonatosPage() {
   const { campeonatos, refetch } = useCampeonatos();
@@ -83,20 +83,95 @@ export default function AdminCampeonatosPage() {
     }
   }
 
+  async function criarNovoCampeonato() {
+    setLoadingAction("criar");
+    try {
+      const { data: activeCamps } = await supabase.from("campeonatos")
+        .select("id, nome")
+        .not("status", "eq", "encerrado");
+
+      if ((activeCamps?.length ?? 0) >= 4) {
+        toast.error("Já existem 4 campeonatos ativos. Encerre um antes de criar outro.");
+        return;
+      }
+
+      const baseName = campeonatos[0]?.nome?.replace(/\s+[A-H]$/, "") ?? "Copa";
+      const usedNames = new Set((activeCamps ?? []).map((c: any) => c.nome));
+      const suffixes = ["", "B", "C", "D", "E", "F", "G", "H"];
+      let newName = "";
+      for (const s of suffixes) {
+        const candidate = s ? `${baseName} ${s}` : baseName;
+        if (!usedNames.has(candidate)) {
+          newName = candidate;
+          break;
+        }
+      }
+      if (!newName) {
+        toast.error("Não foi possível gerar um nome disponível.");
+        return;
+      }
+
+      const edicao = campeonatos[0]?.edicao ?? null;
+      const { data: newCamp, error } = await supabase.from("campeonatos").insert({
+        nome: newName,
+        edicao,
+        status: "inscricoes_abertas",
+        inscricoes_abertas: true,
+        max_times: 16,
+        times_confirmados: 0,
+      }).select().single();
+      if (error) throw error;
+
+      if (newCamp) {
+        for (const g of ["A", "B", "C", "D"]) {
+          await supabase.from("grupos").insert({ campeonato_id: newCamp.id, nome: g });
+        }
+        await supabase.from("campeonato_timer").insert({
+          campeonato_id: newCamp.id, status: "parado", tempo_acumulado: 0,
+        });
+      }
+
+      toast.success(`Campeonato "${newName}" criado com sucesso!`);
+      refetch();
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      setLoadingAction(null);
+    }
+  }
+
   if (!campeonato) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8 text-center text-muted-foreground">
         <Trophy className="w-12 h-12 mx-auto mb-4 opacity-30" />
         <p>Nenhum campeonato ativo</p>
+        <button
+          onClick={criarNovoCampeonato}
+          disabled={loadingAction === "criar"}
+          className="btn-gold flex items-center gap-2 text-sm mx-auto mt-4"
+        >
+          <Plus className="w-4 h-4" />
+          {loadingAction === "criar" ? "Criando..." : "Criar Novo Campeonato"}
+        </button>
       </div>
     );
   }
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
-      <div className="flex items-center gap-3 mb-2">
-        <Trophy className="w-7 h-7 text-primary" />
-        <h1 className="text-2xl font-bold" style={{ fontFamily: "Oswald, sans-serif" }}>Campeonatos</h1>
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center gap-3">
+          <Trophy className="w-7 h-7 text-primary" />
+          <h1 className="text-2xl font-bold" style={{ fontFamily: "Oswald, sans-serif" }}>Campeonatos</h1>
+        </div>
+        <button
+          onClick={criarNovoCampeonato}
+          disabled={loadingAction === "criar"}
+          className="btn-gold flex items-center gap-2 text-sm"
+        >
+          <Plus className="w-4 h-4" />
+          {loadingAction === "criar" ? "Criando..." : "Criar Novo Campeonato"}
+        </button>
       </div>
 
       {/* Tabs */}
