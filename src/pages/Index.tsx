@@ -1,18 +1,23 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Trophy, Users, Calendar, ChevronRight, Star, Shield } from "lucide-react";
-import { useCampeonato, useGrupos, useClassificacao, usePartidas } from "@/hooks/useCopa";
+import { useCampeonatos, useGrupos, useClassificacao, usePartidas } from "@/hooks/useCopa";
 import CampeonatoStats from "@/components/CampeonatoStats";
 import ClassificacaoTable from "@/components/ClassificacaoTable";
 import PartidasList from "@/components/PartidasList";
 import StatusBadge from "@/components/StatusBadge";
 
 export default function Index() {
-  const { campeonato, loading } = useCampeonato();
+  const { campeonatos, loading } = useCampeonatos();
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const campeonato = campeonatos[selectedIdx] ?? campeonatos[0] ?? null;
+
   const { grupos } = useGrupos(campeonato?.id ?? null);
   const { classificacao } = useClassificacao(campeonato?.id ?? null);
   const { partidas, loading: pLoading } = usePartidas(campeonato?.id ?? null);
 
   const ultimasPartidas = partidas.filter(p => p.status === "confirmada" || p.status === "ajustada").slice(-6);
+  const hasOpenInscriptions = campeonatos.some((c: any) => c.inscricoes_abertas);
 
   return (
     <div className="min-h-screen">
@@ -54,7 +59,7 @@ export default function Index() {
           )}
 
           <div className="flex flex-wrap gap-3 justify-center">
-            {campeonato?.inscricoes_abertas && (
+            {hasOpenInscriptions && (
               <Link to="/inscricao" className="btn-gold flex items-center gap-2">
                 <Shield className="w-5 h-5" />
                 Inscreva seu Time
@@ -74,6 +79,29 @@ export default function Index() {
       </section>
 
       <div className="max-w-6xl mx-auto px-4 py-12 space-y-12">
+        {/* Tabs de campeonatos */}
+        {campeonatos.length > 1 && (
+          <div className="flex flex-wrap gap-2 justify-center">
+            {campeonatos.map((c: any, i: number) => (
+              <button
+                key={c.id}
+                onClick={() => setSelectedIdx(i)}
+                className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider transition-all ${
+                  selectedIdx === i
+                    ? "bg-primary text-primary-foreground shadow-lg"
+                    : "bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80"
+                }`}
+                style={{ fontFamily: "Oswald, sans-serif" }}
+              >
+                {c.nome}
+                <span className="ml-2 text-xs opacity-70">
+                  ({c.times_confirmados}/{c.max_times})
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+
         {/* Stats */}
         {campeonato && (
           <section>
@@ -121,7 +149,7 @@ export default function Index() {
         )}
 
         {/* CTA Inscrição */}
-        {campeonato?.inscricoes_abertas && (
+        {hasOpenInscriptions && (
           <section>
             <div className="card-copa-gold p-8 text-center">
               <Trophy className="w-12 h-12 text-primary mx-auto mb-4" />

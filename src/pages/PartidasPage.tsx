@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { useCampeonato, usePartidas } from "@/hooks/useCopa";
+import { useCampeonatos, usePartidas } from "@/hooks/useCopa";
 import PartidasList from "@/components/PartidasList";
 import { Calendar } from "lucide-react";
 
 export default function PartidasPage() {
-  const { campeonato } = useCampeonato();
+  const { campeonatos } = useCampeonatos();
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const campeonato = campeonatos[selectedIdx] ?? campeonatos[0] ?? null;
   const { partidas, loading } = usePartidas(campeonato?.id ?? null);
   const [grupoFiltro, setGrupoFiltro] = useState<string>("todos");
   const [faseFiltro, setFaseFiltro] = useState<string>("todos");
@@ -23,6 +25,26 @@ export default function PartidasPage() {
           Partidas
         </h1>
       </div>
+
+      {/* Tabs de campeonatos */}
+      {campeonatos.length > 1 && (
+        <div className="flex flex-wrap gap-2 mb-6">
+          {campeonatos.map((c: any, i: number) => (
+            <button
+              key={c.id}
+              onClick={() => { setSelectedIdx(i); setGrupoFiltro("todos"); setFaseFiltro("todos"); }}
+              className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider transition-all ${
+                selectedIdx === i
+                  ? "bg-primary text-primary-foreground shadow-lg"
+                  : "bg-muted text-muted-foreground hover:text-foreground"
+              }`}
+              style={{ fontFamily: "Oswald, sans-serif" }}
+            >
+              {c.nome}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Filtros */}
       <div className="flex flex-wrap gap-2 mb-6">
