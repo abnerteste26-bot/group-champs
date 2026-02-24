@@ -74,15 +74,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signOut() {
     try {
-      await supabase.auth.signOut({ scope: 'local' });
+      const { error } = await supabase.auth.signOut({ scope: "global" });
+      if (error) {
+        console.error("Erro ao fazer logout (global):", error);
+      }
     } catch (e) {
       console.error("Erro ao fazer logout:", e);
     } finally {
+      // Fallback defensivo: limpa quaisquer tokens locais do auth client
+      const clearAuthKeys = (storage: Storage) => {
+        Object.keys(storage)
+          .filter((key) => key.startsWith("sb-") && key.includes("auth-token"))
+          .forEach((key) => storage.removeItem(key));
+      };
+
+      clearAuthKeys(window.localStorage);
+      clearAuthKeys(window.sessionStorage);
+
       setUser(null);
       setSession(null);
       setIsAdmin(false);
       setTimeId(null);
-      window.location.href = "/login";
+
+      window.location.replace("/login");
     }
   }
 
