@@ -106,8 +106,34 @@ export default function Index() {
           </section>
         )}
 
-        {/* Classificação Resumida */}
-        {Object.keys(classificacao).length > 0 && (
+        {/* Times Participantes (quando inscrições abertas) */}
+        {campeonato && (campeonato.status === "inscricoes_abertas" || campeonato.status === "inscricoes_encerradas") && grupos.length > 0 && (
+          <section>
+            <h2 className="text-2xl font-bold mb-4" style={{ fontFamily: "Oswald, sans-serif" }}>
+              Times Participantes
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+              {grupos
+                .flatMap((g: any) => (g.grupo_times ?? []).map((gt: any) => gt.time))
+                .filter(Boolean)
+                .map((time: any) => (
+                  <div key={time.id} className="card-copa p-3 flex items-center gap-3 animate-fade-in">
+                    {time.escudo_url ? (
+                      <img src={time.escudo_url} alt={time.nome} className="w-10 h-10 rounded-full object-cover border border-border" />
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground">
+                        <Shield className="w-5 h-5" />
+                      </div>
+                    )}
+                    <span className="text-sm font-semibold truncate">{time.nome}</span>
+                  </div>
+                ))}
+            </div>
+          </section>
+        )}
+
+        {/* Classificação Resumida (somente após início dos jogos) */}
+        {campeonato && campeonato.status !== "inscricoes_abertas" && campeonato.status !== "inscricoes_encerradas" && Object.keys(classificacao).length > 0 && (
           <section>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-bold" style={{ fontFamily: "Oswald, sans-serif" }}>
