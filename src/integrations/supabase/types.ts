@@ -59,6 +59,7 @@ export type Database = {
           edicao: string | null
           id: string
           inscricoes_abertas: boolean
+          logo_url: string | null
           max_times: number
           nome: string
           status: Database["public"]["Enums"]["status_campeonato"]
@@ -71,6 +72,7 @@ export type Database = {
           edicao?: string | null
           id?: string
           inscricoes_abertas?: boolean
+          logo_url?: string | null
           max_times?: number
           nome: string
           status?: Database["public"]["Enums"]["status_campeonato"]
@@ -83,6 +85,7 @@ export type Database = {
           edicao?: string | null
           id?: string
           inscricoes_abertas?: boolean
+          logo_url?: string | null
           max_times?: number
           nome?: string
           status?: Database["public"]["Enums"]["status_campeonato"]

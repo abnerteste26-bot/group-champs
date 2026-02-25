@@ -1,0 +1,1 @@
+ALTER TABLE public.campeonatos ADD COLUMN logo_url text;
