@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import CampeonatoTimer from "@/components/CampeonatoTimer";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import AdminLayout from "@/components/AdminLayout";
@@ -20,6 +21,10 @@ import AdminGruposPage from "./pages/admin/AdminGruposPage";
 import AdminConfigPage from "./pages/admin/AdminConfigPage";
 import AdminLogsPage from "./pages/admin/AdminLogsPage";
 import NotFound from "./pages/NotFound";
+import SobrePage from "./pages/SobrePage";
+import TermosPage from "./pages/TermosPage";
+import PrivacidadePage from "./pages/PrivacidadePage";
+import SuportePage from "./pages/SuportePage";
 
 const queryClient = new QueryClient();
 
@@ -64,14 +69,14 @@ const App = () => (
                   <Route path="configuracoes" element={<AdminConfigPage />} />
                   <Route path="logs" element={<AdminLogsPage />} />
                 </Route>
+                <Route path="/sobre" element={<SobrePage />} />
+                <Route path="/termos" element={<TermosPage />} />
+                <Route path="/privacidade" element={<PrivacidadePage />} />
+                <Route path="/suporte" element={<SuportePage />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
-            <footer className="border-t border-border py-6 text-center text-xs text-muted-foreground">
-              <p style={{ fontFamily: "Oswald, sans-serif", letterSpacing: "0.1em" }}>
-                COPA MASTER © {new Date().getFullYear()} — Todos os direitos reservados
-              </p>
-            </footer>
+            <Footer />
           </div>
         </AuthProvider>
       </BrowserRouter>
