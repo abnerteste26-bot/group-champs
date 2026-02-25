@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Trophy, Users, Calendar, ChevronRight, Star, Shield } from "lucide-react";
 import { useCampeonatos, useGrupos, useClassificacao, usePartidas } from "@/hooks/useCopa";
 import CampeonatoStats from "@/components/CampeonatoStats";
+import CampeonatoCard from "@/components/CampeonatoCard";
 import ClassificacaoTable from "@/components/ClassificacaoTable";
 import PartidasList from "@/components/PartidasList";
 import StatusBadge from "@/components/StatusBadge";
@@ -79,27 +80,23 @@ export default function Index() {
       </section>
 
       <div className="max-w-6xl mx-auto px-4 py-12 space-y-12">
-        {/* Tabs de campeonatos */}
-        {campeonatos.length > 1 && (
-          <div className="flex flex-wrap gap-2 justify-center">
-            {campeonatos.map((c: any, i: number) => (
-              <button
-                key={c.id}
-                onClick={() => setSelectedIdx(i)}
-                className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider transition-all ${
-                  selectedIdx === i
-                    ? "bg-primary text-primary-foreground shadow-lg"
-                    : "bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80"
-                }`}
-                style={{ fontFamily: "Oswald, sans-serif" }}
-              >
-                {c.nome}
-                <span className="ml-2 text-xs opacity-70">
-                  ({c.times_confirmados}/{c.max_times})
-                </span>
-              </button>
-            ))}
-          </div>
+        {/* Cards dos Campeonatos */}
+        {campeonatos.length > 0 && (
+          <section>
+            <h2 className="text-2xl font-bold mb-4" style={{ fontFamily: "Oswald, sans-serif" }}>
+              Campeonatos Ativos
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {campeonatos.map((c: any, i: number) => (
+                <CampeonatoCard
+                  key={c.id}
+                  campeonato={c}
+                  selected={selectedIdx === i}
+                  onClick={() => setSelectedIdx(i)}
+                />
+              ))}
+            </div>
+          </section>
         )}
 
         {/* Stats */}
