@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const PUBLIC_LINKS = [
   { to: "/", label: "Início" },
+  { to: "/campeonatos", label: "Corujões" },
   { to: "/classificacao", label: "Classificação" },
   { to: "/partidas", label: "Partidas" },
 ];

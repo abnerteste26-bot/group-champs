@@ -25,6 +25,7 @@ export default function Footer() {
               Corujões
             </h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
+              <li><Link to="/campeonatos" className="hover:text-primary transition-colors">Ver Corujões</Link></li>
               <li><Link to="/classificacao" className="hover:text-primary transition-colors">Classificação</Link></li>
               <li><Link to="/partidas" className="hover:text-primary transition-colors">Partidas</Link></li>
               <li><Link to="/inscricao" className="hover:text-primary transition-colors">Inscrição</Link></li>

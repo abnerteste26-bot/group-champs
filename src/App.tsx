@@ -25,6 +25,7 @@ import SobrePage from "./pages/SobrePage";
 import TermosPage from "./pages/TermosPage";
 import PrivacidadePage from "./pages/PrivacidadePage";
 import SuportePage from "./pages/SuportePage";
+import CampeonatosPage from "./pages/CampeonatosPage";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,7 @@ const App = () => (
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/inscricao" element={<InscricaoPage />} />
                 <Route path="/classificacao" element={<ClassificacaoPage />} />
+                <Route path="/campeonatos" element={<CampeonatosPage />} />
                 <Route path="/partidas" element={<PartidasPage />} />
                 <Route
                   path="/time"
