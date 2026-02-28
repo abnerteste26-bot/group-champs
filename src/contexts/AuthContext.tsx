@@ -54,7 +54,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       .select("role")
       .eq("user_id", userId)
       .single();
-    
+
     setIsAdmin(roleData?.role === "admin");
 
     if (roleData?.role !== "admin") {
@@ -74,29 +74,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signOut() {
     try {
-      const { error } = await supabase.auth.signOut({ scope: "global" });
-      if (error) {
-        console.error("Erro ao fazer logout (global):", error);
-      }
-    } catch (e) {
-      console.error("Erro ao fazer logout:", e);
+      // Inicia a chamada à API para invalidar a sessão sem travar a interface
+      supabase.auth.signOut().catch((e) => console.error("Erro na API de logout:", e));
     } finally {
-      // Fallback defensivo: limpa quaisquer tokens locais do auth client
-      const clearAuthKeys = (storage: Storage) => {
-        Object.keys(storage)
-          .filter((key) => key.startsWith("sb-") && key.includes("auth-token"))
-          .forEach((key) => storage.removeItem(key));
-      };
-
-      clearAuthKeys(window.localStorage);
-      clearAuthKeys(window.sessionStorage);
+      // Limpeza manual e garantida do storage local
+      Object.keys(window.localStorage).forEach((key) => {
+        if (key.startsWith("sb-") || key.includes("supabase")) {
+          window.localStorage.removeItem(key);
+        }
+      });
+      Object.keys(window.sessionStorage).forEach((key) => {
+        if (key.startsWith("sb-") || key.includes("supabase")) {
+          window.sessionStorage.removeItem(key);
+        }
+      });
 
       setUser(null);
       setSession(null);
       setIsAdmin(false);
       setTimeId(null);
 
-      window.location.replace("/login");
+      window.location.replace("/");
     }
   }
 
