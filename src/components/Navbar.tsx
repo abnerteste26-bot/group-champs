@@ -12,7 +12,7 @@ const PUBLIC_LINKS = [
 export default function Navbar() {
   const { user, isAdmin, signOut } = useAuth();
   const location = useLocation();
-  
+
   const [mobileOpen, setMobileOpen] = useState(false);
 
   async function handleSignOut() {
@@ -27,7 +27,7 @@ export default function Navbar() {
           <Link to="/" className="flex items-center gap-2">
             <Trophy className="w-6 h-6 text-primary" />
             <span className="font-bold text-primary" style={{ fontFamily: "Oswald, sans-serif", fontSize: "1.1rem", letterSpacing: "0.05em" }}>
-              COPA MASTER
+              MASTER CUP
             </span>
           </Link>
 

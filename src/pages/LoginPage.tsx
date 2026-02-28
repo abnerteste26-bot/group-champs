@@ -122,7 +122,7 @@ export default function LoginPage() {
               <p className="text-xs text-muted-foreground">3. Execute o SQL:</p>
               <div className="relative">
                 <code className="block bg-muted rounded p-3 text-xs font-mono text-foreground whitespace-pre">
-{`INSERT INTO user_roles (user_id, role)
+                  {`INSERT INTO user_roles (user_id, role)
 VALUES ('${cadastradoUserId}', 'admin');`}
                 </code>
                 <button
@@ -157,7 +157,7 @@ VALUES ('${cadastradoUserId}', 'admin');`}
         <div className="text-center mb-8">
           <Trophy className="w-12 h-12 text-primary mx-auto mb-3 animate-glow" />
           <h1 className="text-3xl font-bold text-primary" style={{ fontFamily: "Oswald, sans-serif" }}>
-            COPA MASTER
+            MASTER CUP
           </h1>
           <p className="text-muted-foreground mt-1">
             {mode === "login" ? "Entre com sua conta" : "Criar nova conta"}
@@ -168,9 +168,8 @@ VALUES ('${cadastradoUserId}', 'admin');`}
         <div className="flex gap-1 mb-5 bg-muted/30 rounded-xl p-1">
           <button
             onClick={() => setMode("login")}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-semibold transition-all ${
-              mode === "login" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-            }`}
+            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-semibold transition-all ${mode === "login" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+              }`}
             style={{ fontFamily: "Oswald, sans-serif" }}
           >
             <LogIn className="w-4 h-4" />
@@ -178,9 +177,8 @@ VALUES ('${cadastradoUserId}', 'admin');`}
           </button>
           <button
             onClick={() => setMode("cadastro")}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-semibold transition-all ${
-              mode === "cadastro" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-            }`}
+            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-semibold transition-all ${mode === "cadastro" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+              }`}
             style={{ fontFamily: "Oswald, sans-serif" }}
           >
             <UserPlus className="w-4 h-4" />

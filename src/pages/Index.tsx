@@ -35,7 +35,7 @@ export default function Index() {
         <div className="relative max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/40 text-primary text-sm font-semibold mb-6" style={{ background: "hsl(42 95% 52% / 0.1)" }}>
             <Star className="w-4 h-4" />
-            {campeonato?.nome ?? "Copa Master 2025"}
+            {campeonato?.nome ?? "Master Cup 2025"}
           </div>
 
           <h1
