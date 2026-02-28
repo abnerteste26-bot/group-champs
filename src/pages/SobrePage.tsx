@@ -6,7 +6,7 @@ export default function SobrePage() {
       <div className="text-center">
         <Trophy className="w-12 h-12 text-primary mx-auto mb-4" />
         <h1 className="text-4xl font-black mb-2" style={{ fontFamily: "Oswald, sans-serif" }}>SOBRE NÓS</h1>
-        <p className="text-muted-foreground">Conheça a Master Cup</p>
+        <p className="text-muted-foreground">Conheça a Copa Master</p>
       </div>
 
       <div className="card-copa p-6 space-y-4 text-sm text-muted-foreground leading-relaxed">
@@ -21,7 +21,7 @@ export default function SobrePage() {
           <Users className="w-5 h-5 text-primary mt-0.5 shrink-0" />
           <div>
             <h3 className="text-foreground font-bold mb-1">Quem Somos</h3>
-            <p>A Master Cup é um campeonato regional que reúne os melhores times da região. Com organização profissional, nosso objetivo é proporcionar uma experiência esportiva de alto nível para jogadores e torcedores.</p>
+            <p>A Copa Master é um campeonato regional que reúne os melhores times da região. Com organização profissional, nosso objetivo é proporcionar uma experiência esportiva de alto nível para jogadores e torcedores.</p>
           </div>
         </div>
       </div>

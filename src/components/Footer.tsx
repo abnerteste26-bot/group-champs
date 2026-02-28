@@ -11,7 +11,7 @@ export default function Footer() {
             <Link to="/" className="flex items-center gap-2 mb-3">
               <Trophy className="w-6 h-6 text-primary" />
               <span className="text-lg font-black tracking-tight" style={{ fontFamily: "Oswald, sans-serif" }}>
-                MASTER CUP
+                COPA MASTER
               </span>
             </Link>
             <p className="text-xs text-muted-foreground leading-relaxed">
@@ -59,7 +59,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} Master Cup. Todos os direitos reservados.
+            &copy; {new Date().getFullYear()} Copa Master. Todos os direitos reservados.
           </p>
           <div className="flex items-center gap-4 text-xs text-muted-foreground">
             <Link to="/privacidade" className="hover:text-primary transition-colors">Privacidade</Link>

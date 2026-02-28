@@ -157,7 +157,7 @@ VALUES ('${cadastradoUserId}', 'admin');`}
         <div className="text-center mb-8">
           <Trophy className="w-12 h-12 text-primary mx-auto mb-3 animate-glow" />
           <h1 className="text-3xl font-bold text-primary" style={{ fontFamily: "Oswald, sans-serif" }}>
-            MASTER CUP
+            COPA MASTER
           </h1>
           <p className="text-muted-foreground mt-1">
             {mode === "login" ? "Entre com sua conta" : "Criar nova conta"}

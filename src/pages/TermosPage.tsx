@@ -12,7 +12,7 @@ export default function TermosPage() {
       <div className="card-copa p-6 space-y-6 text-sm text-muted-foreground leading-relaxed">
         <section>
           <h3 className="text-foreground font-bold mb-2">1. Aceitação dos Termos</h3>
-          <p>Ao acessar e utilizar a plataforma Master Cup, você concorda com estes Termos de Uso. Caso não concorde, recomendamos que não utilize nossos serviços.</p>
+          <p>Ao acessar e utilizar a plataforma Copa Master, você concorda com estes Termos de Uso. Caso não concorde, recomendamos que não utilize nossos serviços.</p>
         </section>
         <section>
           <h3 className="text-foreground font-bold mb-2">2. Inscrição e Participação</h3>
