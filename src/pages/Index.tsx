@@ -42,15 +42,15 @@ export default function Index() {
             className="text-5xl md:text-7xl font-black text-foreground mb-4 leading-none"
             style={{ fontFamily: "Oswald, sans-serif", letterSpacing: "-0.02em" }}
           >
-            COPA
+            MASTER
             <br />
             <span className="text-primary" style={{ textShadow: "0 0 40px hsl(42 95% 52% / 0.6)" }}>
-              MASTER
+              CUP
             </span>
           </h1>
 
           <p className="text-xl text-muted-foreground mb-8 max-w-xl mx-auto">
-            O campeonato mais emocionante da região. Fase de grupos, mata-mata e muito mais.
+            Fase de grupos e mata-mata.
           </p>
 
           {campeonato && (
