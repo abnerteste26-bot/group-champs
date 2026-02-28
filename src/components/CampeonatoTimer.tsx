@@ -130,7 +130,7 @@ export default function CampeonatoTimer() {
 
   async function handleReset() {
     if (!timer) return;
-    if (!confirm("Resetar o cronômetro do campeonato?")) return;
+    if (!confirm("Resetar o cronômetro do corujão?")) return;
     setLoading(true);
     try {
       await supabase
@@ -156,7 +156,7 @@ export default function CampeonatoTimer() {
         <div className="flex items-center gap-3">
           <Clock className={`w-4 h-4 ${isRunning ? "text-green-400 animate-pulse" : "text-muted-foreground"}`} />
           <span className="text-xs uppercase tracking-widest text-muted-foreground font-semibold" style={{ fontFamily: "Oswald, sans-serif" }}>
-            Tempo de Campeonato
+            Tempo de Corujão
           </span>
           <span
             className={`font-bold text-sm tabular-nums ${isRunning ? "text-primary" : "text-foreground"}`}

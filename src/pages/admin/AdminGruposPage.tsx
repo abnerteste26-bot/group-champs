@@ -90,7 +90,7 @@ export default function AdminGruposPage() {
   }
 
   if (!campeonato) {
-    return <div className="text-center py-16 text-muted-foreground">Nenhum campeonato ativo</div>;
+    return <div className="text-center py-16 text-muted-foreground">Nenhum corujão ativo</div>;
   }
 
   return (

@@ -16,7 +16,7 @@ export default function TermosPage() {
         </section>
         <section>
           <h3 className="text-foreground font-bold mb-2">2. Inscrição e Participação</h3>
-          <p>A inscrição no campeonato está sujeita à aprovação da organização. Cada time deve ter um responsável que será o ponto de contato oficial. Os times devem respeitar o regulamento do campeonato.</p>
+          <p>A inscrição no corujão está sujeita à aprovação da organização. Cada time deve ter um responsável que será o ponto de contato oficial. Os times devem respeitar o regulamento do corujão.</p>
         </section>
         <section>
           <h3 className="text-foreground font-bold mb-2">3. Conduta</h3>

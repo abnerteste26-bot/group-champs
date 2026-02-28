@@ -30,7 +30,7 @@ export default function InscricaoForm({ onSuccess }: InscricaoFormProps) {
       return;
     }
     if (!campeonato) {
-      toast.error("Nenhum campeonato ativo");
+      toast.error("Nenhum corujão ativo");
       return;
     }
     if (form.nome_time.trim().length < 2) {
@@ -115,7 +115,7 @@ export default function InscricaoForm({ onSuccess }: InscricaoFormProps) {
         />
         <label htmlFor="regulamento" className="text-sm text-muted-foreground cursor-pointer">
           Li e aceito o{" "}
-          <span className="text-primary underline cursor-pointer">Regulamento do Campeonato</span>
+          <span className="text-primary underline cursor-pointer">Regulamento do Corujão</span>
           . Estou ciente das regras e penalidades previstas.
         </label>
       </div>

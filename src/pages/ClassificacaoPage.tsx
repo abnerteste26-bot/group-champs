@@ -35,11 +35,10 @@ export default function ClassificacaoPage() {
             <button
               key={c.id}
               onClick={() => setSelectedIdx(i)}
-              className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider transition-all ${
-                selectedIdx === i
+              className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider transition-all ${selectedIdx === i
                   ? "bg-primary text-primary-foreground shadow-lg"
                   : "bg-muted text-muted-foreground hover:text-foreground"
-              }`}
+                }`}
               style={{ fontFamily: "Oswald, sans-serif" }}
             >
               {c.nome}
@@ -55,7 +54,7 @@ export default function ClassificacaoPage() {
       ) : !campeonato ? (
         <div className="text-center py-16 text-muted-foreground">
           <Trophy className="w-12 h-12 mx-auto mb-4 opacity-30" />
-          <p className="text-lg">Nenhum campeonato ativo</p>
+          <p className="text-lg">Nenhum corujão ativo</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

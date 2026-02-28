@@ -84,7 +84,7 @@ export default function Index() {
         {campeonatos.length > 0 && (
           <section>
             <h2 className="text-2xl font-bold mb-4" style={{ fontFamily: "Oswald, sans-serif" }}>
-              Campeonatos Ativos
+              Corujões Ativos
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {campeonatos.map((c: any, i: number) => (
@@ -180,7 +180,7 @@ export default function Index() {
                 Vagas Limitadas!
               </h2>
               <p className="text-muted-foreground mb-6">
-                O campeonato aceita apenas 16 times. Garanta sua vaga agora.
+                O corujão aceita apenas 16 times. Garanta sua vaga agora.
               </p>
               <Link to="/inscricao" className="btn-gold inline-flex items-center gap-2">
                 <Shield className="w-5 h-5" />

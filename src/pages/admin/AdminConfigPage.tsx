@@ -14,7 +14,7 @@ export default function AdminConfigPage() {
 
       {campeonato ? (
         <div className="card-copa p-6">
-          <h3 className="text-lg font-bold mb-4" style={{ fontFamily: "Oswald, sans-serif" }}>Campeonato Atual</h3>
+          <h3 className="text-lg font-bold mb-4" style={{ fontFamily: "Oswald, sans-serif" }}>Corujão Atual</h3>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div><span className="field-label">Nome</span><p className="text-foreground mt-1">{campeonato.nome}</p></div>
             <div><span className="field-label">Edição</span><p className="text-foreground mt-1">{campeonato.edicao ?? "—"}</p></div>
@@ -25,7 +25,7 @@ export default function AdminConfigPage() {
           </div>
         </div>
       ) : (
-        <p className="text-muted-foreground">Nenhum campeonato ativo.</p>
+        <p className="text-muted-foreground">Nenhum corujão ativo.</p>
       )}
     </div>
   );

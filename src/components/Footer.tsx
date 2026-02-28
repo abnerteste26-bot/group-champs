@@ -15,14 +15,14 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              O campeonato mais emocionante da região. Organização, transparência e fair play.
+              O corujão mais emocionante da região. Organização, transparência e fair play.
             </p>
           </div>
 
           {/* Campeonatos */}
           <div>
             <h4 className="text-sm font-bold uppercase tracking-wider mb-3" style={{ fontFamily: "Oswald, sans-serif" }}>
-              Campeonatos
+              Corujões
             </h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><Link to="/classificacao" className="hover:text-primary transition-colors">Classificação</Link></li>

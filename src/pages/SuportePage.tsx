@@ -13,7 +13,7 @@ export default function SuportePage() {
         <div className="card-copa p-6 text-center">
           <MessageCircle className="w-8 h-8 text-primary mx-auto mb-3" />
           <h3 className="font-bold mb-2">Contato</h3>
-          <p className="text-sm text-muted-foreground mb-4">Fale diretamente com a organização do campeonato para dúvidas, sugestões ou reclamações.</p>
+          <p className="text-sm text-muted-foreground mb-4">Fale diretamente com a organização do corujão para dúvidas, sugestões ou reclamações.</p>
           <a
             href="https://wa.me/"
             target="_blank"
@@ -28,7 +28,7 @@ export default function SuportePage() {
         <div className="card-copa p-6 text-center">
           <BookOpen className="w-8 h-8 text-primary mx-auto mb-3" />
           <h3 className="font-bold mb-2">Regulamento</h3>
-          <p className="text-sm text-muted-foreground mb-4">Consulte as regras oficiais do campeonato, critérios de classificação e código de conduta.</p>
+          <p className="text-sm text-muted-foreground mb-4">Consulte as regras oficiais do corujão, critérios de classificação e código de conduta.</p>
           <button className="btn-gold inline-flex items-center gap-2 text-sm opacity-60 cursor-not-allowed">
             <BookOpen className="w-4 h-4" />
             Em breve

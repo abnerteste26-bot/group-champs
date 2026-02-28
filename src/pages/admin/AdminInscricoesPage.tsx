@@ -148,7 +148,7 @@ export default function AdminInscricoesPage() {
                       </div>
                       {ins.campeonato?.nome && (
                         <div>
-                          <span className="text-muted-foreground">Campeonato: </span>
+                          <span className="text-muted-foreground">Corujão: </span>
                           <span className="text-foreground">{ins.campeonato.nome}</span>
                         </div>
                       )}

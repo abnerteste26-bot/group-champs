@@ -30,7 +30,7 @@ export default function AdminCampeonatosPage() {
 
   async function encerrarCampeonato() {
     if (!campeonato) return;
-    if (!confirm("Encerrar campeonato definitivamente?")) return;
+    if (!confirm("Encerrar corujão definitivamente?")) return;
     setLoadingAction("encerrar_camp");
     try {
       await supabase.from("campeonatos").update({ status: "encerrado" }).eq("id", campeonato.id);
@@ -69,12 +69,12 @@ export default function AdminCampeonatosPage() {
             await supabase.from("campeonato_timer").insert({
               campeonato_id: newCamp.id, status: "parado", tempo_acumulado: 0,
             });
-            toast.success(`Novo campeonato "${newName}" criado automaticamente!`);
+            toast.success(`Novo corujão "${newName}" criado automaticamente!`);
           }
         }
       }
 
-      toast.info("Campeonato encerrado");
+      toast.info("Corujão encerrado");
       refetch();
     } catch (err: any) {
       toast.error(err.message);
@@ -91,7 +91,7 @@ export default function AdminCampeonatosPage() {
         .not("status", "eq", "encerrado");
 
       if ((activeCamps?.length ?? 0) >= 4) {
-        toast.error("Já existem 4 campeonatos ativos. Encerre um antes de criar outro.");
+        toast.error("Já existem 4 corujões ativos. Encerre um antes de criar outro.");
         return;
       }
 
@@ -131,7 +131,7 @@ export default function AdminCampeonatosPage() {
         });
       }
 
-      toast.success(`Campeonato "${newName}" criado com sucesso!`);
+      toast.success(`Corujão "${newName}" criado com sucesso!`);
       refetch();
     } catch (err: any) {
       toast.error(err.message);
@@ -144,14 +144,14 @@ export default function AdminCampeonatosPage() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8 text-center text-muted-foreground">
         <Trophy className="w-12 h-12 mx-auto mb-4 opacity-30" />
-        <p>Nenhum campeonato ativo</p>
+        <p>Nenhum corujão ativo</p>
         <button
           onClick={criarNovoCampeonato}
           disabled={loadingAction === "criar"}
           className="btn-gold flex items-center gap-2 text-sm mx-auto mt-4"
         >
           <Plus className="w-4 h-4" />
-          {loadingAction === "criar" ? "Criando..." : "Criar Novo Campeonato"}
+          {loadingAction === "criar" ? "Criando..." : "Criar Novo Corujão"}
         </button>
       </div>
     );
@@ -162,7 +162,7 @@ export default function AdminCampeonatosPage() {
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-3">
           <Trophy className="w-7 h-7 text-primary" />
-          <h1 className="text-2xl font-bold" style={{ fontFamily: "Oswald, sans-serif" }}>Campeonatos</h1>
+          <h1 className="text-2xl font-bold" style={{ fontFamily: "Oswald, sans-serif" }}>Corujões</h1>
         </div>
         <button
           onClick={criarNovoCampeonato}
@@ -170,7 +170,7 @@ export default function AdminCampeonatosPage() {
           className="btn-gold flex items-center gap-2 text-sm"
         >
           <Plus className="w-4 h-4" />
-          {loadingAction === "criar" ? "Criando..." : "Criar Novo Campeonato"}
+          {loadingAction === "criar" ? "Criando..." : "Criar Novo Corujão"}
         </button>
       </div>
 
@@ -226,7 +226,7 @@ export default function AdminCampeonatosPage() {
           style={{ fontFamily: "Oswald, sans-serif" }}
         >
           <Lock className="w-4 h-4" />
-          Encerrar Campeonato
+          Encerrar Corujão
         </button>
       </div>
     </div>

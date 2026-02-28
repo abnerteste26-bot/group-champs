@@ -8,7 +8,7 @@ export default function InscricaoPage() {
       <div className="text-center mb-8">
         <Trophy className="w-10 h-10 text-primary mx-auto mb-3" />
         <h1 className="text-3xl font-bold text-foreground" style={{ fontFamily: "Oswald, sans-serif" }}>
-          Inscrição no Campeonato
+          Inscrição no Corujão
         </h1>
         <p className="text-muted-foreground mt-2">
           Preencha os dados abaixo para participar. Após análise, seu time receberá login e senha.
@@ -20,7 +20,7 @@ export default function InscricaoPage() {
           📋 Regulamento Resumido
         </h2>
         <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-          <li>Campeonato com 16 times, 4 grupos de 4 times</li>
+          <li>Corujão com 16 times, 4 grupos de 4 times</li>
           <li>Fase de grupos: todos contra todos com jogos apenas de ida</li>
           <li>Os dois melhores de cada grupo avançam para o mata-mata</li>
           <li>Pontuação: vitória = 3pts, empate = 1pt, derrota = 0</li>

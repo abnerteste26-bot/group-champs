@@ -14,14 +14,14 @@ export default function SobrePage() {
           <Target className="w-5 h-5 text-primary mt-0.5 shrink-0" />
           <div>
             <h3 className="text-foreground font-bold mb-1">Nossa Missão</h3>
-            <p>Promover a integração esportiva através de campeonatos organizados com transparência, fair play e competitividade saudável.</p>
+            <p>Promover a integração esportiva através de corujões organizados com transparência, fair play e competitividade saudável.</p>
           </div>
         </div>
         <div className="flex items-start gap-3">
           <Users className="w-5 h-5 text-primary mt-0.5 shrink-0" />
           <div>
             <h3 className="text-foreground font-bold mb-1">Quem Somos</h3>
-            <p>O Corujão Master é um campeonato regional que reúne os melhores times da região. Com organização profissional, nosso objetivo é proporcionar uma experiência esportiva de alto nível para jogadores e torcedores.</p>
+            <p>O Corujão Master é um corujão regional que reúne os melhores times da região. Com organização profissional, nosso objetivo é proporcionar uma experiência esportiva de alto nível para jogadores e torcedores.</p>
           </div>
         </div>
       </div>

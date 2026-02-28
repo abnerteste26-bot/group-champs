@@ -12,11 +12,11 @@ export default function PrivacidadePage() {
       <div className="card-copa p-6 space-y-6 text-sm text-muted-foreground leading-relaxed">
         <section>
           <h3 className="text-foreground font-bold mb-2">1. Dados Coletados</h3>
-          <p>Coletamos apenas os dados necessários para a organização do campeonato: nome do time, nome do responsável, número de WhatsApp e escudo do time.</p>
+          <p>Coletamos apenas os dados necessários para a organização do corujão: nome do time, nome do responsável, número de WhatsApp e escudo do time.</p>
         </section>
         <section>
           <h3 className="text-foreground font-bold mb-2">2. Uso dos Dados</h3>
-          <p>Seus dados são utilizados exclusivamente para gestão do campeonato, comunicação sobre partidas e resultados, e organização dos grupos e classificações.</p>
+          <p>Seus dados são utilizados exclusivamente para gestão do corujão, comunicação sobre partidas e resultados, e organização dos grupos e classificações.</p>
         </section>
         <section>
           <h3 className="text-foreground font-bold mb-2">3. Compartilhamento</h3>
