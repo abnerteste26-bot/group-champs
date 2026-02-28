@@ -39,11 +39,11 @@ export default function AdminCampeonatosPage() {
       const { data: activeCamps } = await supabase.from("campeonatos")
         .select("id, nome")
         .not("status", "eq", "encerrado");
-      
+
       if ((activeCamps?.length ?? 0) < 4) {
-        const baseName = campeonato.nome.replace(/\s+[A-H]$/, "");
+        const baseName = campeonato.nome.replace(/\s+[1-8]$/, "");
         const usedNames = new Set((activeCamps ?? []).map((c: any) => c.nome));
-        const suffixes = ["", "B", "C", "D", "E", "F", "G", "H"];
+        const suffixes = ["1", "2", "3", "4", "5", "6", "7", "8"];
         let newName = "";
         for (const s of suffixes) {
           const candidate = s ? `${baseName} ${s}` : baseName;
@@ -95,9 +95,9 @@ export default function AdminCampeonatosPage() {
         return;
       }
 
-      const baseName = campeonatos[0]?.nome?.replace(/\s+[A-H]$/, "") ?? "Copa";
+      const baseName = campeonatos[0]?.nome?.replace(/\s+[1-8]$/, "") ?? "Corujão";
       const usedNames = new Set((activeCamps ?? []).map((c: any) => c.nome));
-      const suffixes = ["", "B", "C", "D", "E", "F", "G", "H"];
+      const suffixes = ["1", "2", "3", "4", "5", "6", "7", "8"];
       let newName = "";
       for (const s of suffixes) {
         const candidate = s ? `${baseName} ${s}` : baseName;
@@ -181,11 +181,10 @@ export default function AdminCampeonatosPage() {
             <button
               key={c.id}
               onClick={() => setSelectedIdx(i)}
-              className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider transition-all ${
-                selectedIdx === i
-                  ? "bg-primary text-primary-foreground shadow-lg"
-                  : "bg-muted text-muted-foreground hover:text-foreground"
-              }`}
+              className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider transition-all ${selectedIdx === i
+                ? "bg-primary text-primary-foreground shadow-lg"
+                : "bg-muted text-muted-foreground hover:text-foreground"
+                }`}
               style={{ fontFamily: "Oswald, sans-serif" }}
             >
               {c.nome}
